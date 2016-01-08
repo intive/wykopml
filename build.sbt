@@ -49,3 +49,16 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaStreamsVersion
   )
 }
+
+import com.typesafe.sbt.SbtScalariform
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
+import scalariform.formatter.preferences._
+
+SbtScalariform.defaultScalariformSettings
+
+ScalariformKeys.preferences := ScalariformKeys.preferences.value
+  .setPreference(AlignSingleLineCaseStatements, true)
+  .setPreference(SpacesAroundMultiImports, false)
+  .setPreference(DoubleIndentClassDeclaration, true)
+
+addCommandAlias("formatAll", ";scalariformFormat;test:scalariformFormat")
