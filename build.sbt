@@ -69,6 +69,13 @@ libraryDependencies ++= {
   )
 }
 
+libraryDependencies ++= {
+  val sparkVersion = "1.6.0"
+  Seq(
+    "org.apache.spark" %% "spark-core" % sparkVersion exclude("org.slf4j", "slf4j-log4j12")
+  )
+}
+
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
