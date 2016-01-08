@@ -31,6 +31,16 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
   "org.scalatest" %% "scalatest" % "2.2.4" % "test"
 )
+resolvers += "websudos" at "http://dl.bintray.com/websudos/oss-releases"
+libraryDependencies ++= {
+  val phantomVersion = "1.20.1"
+  Seq(
+    "com.websudos" %% "phantom-dsl" % phantomVersion,
+    "com.websudos" %% "phantom-udt" % phantomVersion,
+    "com.websudos" %% "phantom-reactivestreams" % phantomVersion
+  )
+}
+
 libraryDependencies ++= {
   val akkaVersion = "2.4.1"
   Seq(
