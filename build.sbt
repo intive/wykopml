@@ -40,3 +40,12 @@ libraryDependencies ++= {
   )
 }
 
+libraryDependencies ++= {
+  val akkaStreamsVersion = "2.0.1"
+  Seq(
+    "com.typesafe.akka" %% "akka-stream-experimental" % akkaStreamsVersion,
+    "com.typesafe.akka" %% "akka-http-core-experimental" % akkaStreamsVersion,
+    "com.typesafe.akka" %% "akka-http-experimental" % akkaStreamsVersion,
+    "com.typesafe.akka" %% "akka-http-spray-json-experimental" % akkaStreamsVersion
+  )
+}
