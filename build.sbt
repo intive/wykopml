@@ -31,6 +31,15 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
   "org.scalatest" %% "scalatest" % "2.2.4" % "test"
 )
+
+libraryDependencies ++= {
+  val ammoniteVersion = "0.5.1"
+  Seq(
+    "com.lihaoyi" % "ammonite-repl" % "0.5.1" cross CrossVersion.full,
+    "com.lihaoyi" % "ammonite-sshd" % ammoniteVersion cross CrossVersion.full
+  )
+}
+
 resolvers += "websudos" at "http://dl.bintray.com/websudos/oss-releases"
 libraryDependencies ++= {
   val phantomVersion = "1.20.1"
