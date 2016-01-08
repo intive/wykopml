@@ -31,3 +31,12 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
   "org.scalatest" %% "scalatest" % "2.2.4" % "test"
 )
+libraryDependencies ++= {
+  val akkaVersion = "2.4.1"
+  Seq(
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+    "com.typesafe.akka" %% "akka-contrib" % akkaVersion
+  )
+}
+
