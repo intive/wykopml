@@ -72,7 +72,8 @@ libraryDependencies ++= {
 libraryDependencies ++= {
   val sparkVersion = "1.6.0"
   Seq(
-    "org.apache.spark" %% "spark-core" % sparkVersion exclude("org.slf4j", "slf4j-log4j12")
+    "org.apache.spark" %% "spark-core" % sparkVersion exclude("org.slf4j", "slf4j-log4j12"),
+    "org.apache.spark" %% "spark-mllib" % sparkVersion exclude("org.slf4j", "slf4j-log4j12")
   )
 }
 
