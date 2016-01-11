@@ -7,7 +7,7 @@ import wykopml.bo.Wykop
 
 class WykopsTable extends CassandraTable[WykopsTable, Wykop] {
 
-  object id extends LongColumn(this) with PartitionKey[Long]
+  object id extends IntColumn(this) with PartitionKey[Int]
 
   object title extends StringColumn(this)
 

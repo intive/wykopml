@@ -5,7 +5,7 @@ import wykopml.bo.Vote
 
 class VotesTable extends CassandraTable[VotesTable, Vote] {
 
-  object wykopId extends LongColumn(this) with PartitionKey[Long]
+  object wykopId extends IntColumn(this) with PartitionKey[Int]
 
   object who extends StringColumn(this) with PrimaryKey[String]
 
@@ -15,7 +15,7 @@ class VotesTable extends CassandraTable[VotesTable, Vote] {
 
   override def fromRow(r: Row): Vote = {
     Vote(
-      wykopId(r).toInt,
+      wykopId(r),
       who(r),
       isUp(r),
       when(r)

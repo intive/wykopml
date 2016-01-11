@@ -18,7 +18,7 @@ object Prediction extends App with StrictLogging {
 
       val userToRecommend = "lustefaniak"
       println(s"Will recommend for ${userToRecommend}")
-      val userMappedId = userMappings("lustefaniak").toInt
+      val userMappedId = userMappings("lustefaniak")
 
       println(model.predict(userMappedId, 2944301))
 

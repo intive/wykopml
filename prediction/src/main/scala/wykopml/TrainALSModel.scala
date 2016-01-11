@@ -5,7 +5,7 @@ import org.apache.spark.mllib.recommendation.{ALS, MatrixFactorizationModel, Rat
 import org.apache.spark.rdd.RDD
 import wykopml.spark.{LoadVotesFromCassandra, WithSpark}
 
-object TrainModel extends App with StrictLogging {
+object TrainALSModel extends App with StrictLogging {
 
   private def createModel(rank: Int, numIterations: Int, ratings: RDD[Rating], calculateMse: Boolean = false): (MatrixFactorizationModel, Option[Double]) = {
     val model = ALS.train(ratings, rank, numIterations)
@@ -59,7 +59,7 @@ object TrainModel extends App with StrictLogging {
         val (model, mse) = createModel(rank, numIterations, ratings, true)
         println(s"For rank ${rank} mse is ${mse}")
         if (bestModelAndMse.isEmpty || bestModelAndMse.get._3.getOrElse(Double.MaxValue) > mse.getOrElse(0.0)) {
-          println("Will use new trained model")
+          println(s"Will use new trained model, previous best was $bestModelAndMse")
           bestModelAndMse = Some((rank, model, mse))
         }
       }

@@ -5,7 +5,7 @@ import wykopml.bo.Comment
 
 class CommentsTable extends CassandraTable[CommentsTable, Comment] {
 
-  object wykopId extends LongColumn(this) with PartitionKey[Long]
+  object wykopId extends IntColumn(this) with PartitionKey[Int]
 
   object id extends LongColumn(this) with PrimaryKey[Long]
 
@@ -27,7 +27,7 @@ class CommentsTable extends CassandraTable[CommentsTable, Comment] {
 
   override def fromRow(r: Row): Comment = {
     Comment(
-      wykopId(r).toInt,
+      wykopId(r),
       id(r),
       who(r),
       content(r),

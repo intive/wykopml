@@ -22,7 +22,7 @@ case object LoadVotesFromCassandra {
 
         override def read(row: Row, columnNames: Array[String]): Vote = {
           Vote(
-            row.getLong("wykopid").toInt,
+            row.getInt("wykopid"),
             row.getString("who"),
             row.getBool("isup"),
             LocalDateTime.ofInstant(row.getTimestamp("when").toInstant, ZoneId.systemDefault())
