@@ -40,5 +40,10 @@
     </root>
     
     <logger name="org.apache.spark" level="WARN"/>
+    <logger name="org.apache.hadoop" level="WARN"/>
+    <logger name="org.apache.parquet" level="ERROR"/>
+    <logger name="org.spark-project.jetty" level="WARN"/>
+
+
 
 </configuration>
