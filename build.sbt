@@ -77,6 +77,13 @@ libraryDependencies ++= {
   )
 }
 
+libraryDependencies ++= {
+  Seq(
+    "com.datastax.spark" %% "spark-cassandra-connector" % "1.5.0-RC1" exclude("org.apache.spark", "spark-core") exclude("org.slf4j", "slf4j-log4j12")
+  )
+}
+
+
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
