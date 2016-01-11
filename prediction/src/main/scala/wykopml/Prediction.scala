@@ -6,33 +6,24 @@ import wykopml.spark.WithSpark
 
 object Prediction extends App with StrictLogging {
 
-  val paths = Paths(".model")
+  if (args.size < 1) {
+    println("Please provide path to model as an argument")
+    sys.exit(1)
+  }
+
+  val paths = Paths(args(0))
 
   WithSpark {
     sc =>
       val model = MatrixFactorizationModel.load(sc, paths.modelPath)
       val userMappings = sc.objectFile[(String, Int)](paths.userMappingsPath).collectAsMap()
 
-      println("=====================")
-      println("\n\n\n\n\n")
-
-      val userToRecommend = "lustefaniak"
+      val userToRecommend: String = if (args.size >= 2) args(1) else "lustefaniak"
       println(s"Will recommend for ${userToRecommend}")
-      val userMappedId = userMappings("lustefaniak")
+      val userMappedId = userMappings(userToRecommend)
 
-      println(model.predict(userMappedId, 2944301))
+      model.recommendProducts(userMappedId, 10).foreach(r => println(s"${r.product} @ ${r.rating}"))
 
-      model.recommendProducts(userMappedId, 10).map {
-        rating =>
-          println(rating)
-          println(userMappings.getReverse(rating.user))
-          println(rating.product)
-
-      }
-
-      println("\n\n\n\n\n")
-      println("=====================")
-      println("\n\n\n\n\n")
   }
 
 }
