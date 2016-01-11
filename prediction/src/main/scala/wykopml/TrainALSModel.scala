@@ -47,7 +47,6 @@ object TrainALSModel extends App with StrictLogging {
       val votesRDD = LoadVotesFromCassandra(sc).setName("votes").cache()
 
       val userMappingsRDD = votesRDD.map(_.who).distinct().zipWithIndex.map(p => (p._1, p._2.toInt))
-      userMappingsRDD.saveAsObjectFile(paths.userMappingsPath)
       val userMappings = userMappingsRDD.collectAsMap()
       val ratings = votesRDD.map {
         v => Rating(userMappings(v.who), v.wykopId, if (v.isUp) 1 else -3)
@@ -66,6 +65,8 @@ object TrainALSModel extends App with StrictLogging {
 
       bestModelAndMse.foreach {
         case (rank, model, mse) =>
+          println(s"Saving user mappings to ${paths.userMappingsPath}")
+          userMappingsRDD.saveAsObjectFile(paths.userMappingsPath)
           println(s"Saving model with rank ${rank} and MSE ${mse} to ${paths.modelPath}")
           model.save(sc, paths.modelPath)
       }
