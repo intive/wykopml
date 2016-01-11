@@ -23,7 +23,7 @@ object TrainALSModelUsingVotes extends App with StrictLogging {
         v => Rating(userMappings(v.who), v.wykopId, if (v.isUp) 1 else -3)
       }.cache()
 
-      val (model, mse) = TrainALS.createModel(rank, numIterations, ratings, calculateMse = true)
+      val (model, mse) = TrainALS.createModel(rank, numIterations, ratings, shouldCalculateMse = true)
 
       println(s"Saving user mappings to ${paths.userMappingsPath}")
       userMappingsRDD.saveAsObjectFile(paths.userMappingsPath)
