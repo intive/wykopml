@@ -9,16 +9,16 @@ class VotesTable extends CassandraTable[VotesTable, Vote] {
 
   object who extends StringColumn(this) with PrimaryKey[String]
 
-  object when extends DateTimeColumn(this)
-
   object isUp extends BooleanColumn(this)
+
+  object when extends DateTimeColumn(this)
 
   override def fromRow(r: Row): Vote = {
     Vote(
-      wykopId(r),
+      wykopId(r).toInt,
       who(r),
-      when(r),
-      isUp(r)
+      isUp(r),
+      when(r)
     )
   }
 }

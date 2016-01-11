@@ -30,7 +30,7 @@ class WykopsTable extends CassandraTable[WykopsTable, Wykop] {
   def fromRow(row: Row): Wykop = {
 
     Wykop(
-      id(row),
+      id(row).toInt,
       title(row),
       description(row),
       author(row),

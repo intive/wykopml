@@ -3,7 +3,7 @@ package wykopml.bo
 import java.time.LocalDateTime
 
 case class Wykop(
-    id: Long,
+    id: Int,
     title: String,
     description: String,
     author: String,
@@ -21,7 +21,7 @@ case class Wykop(
 }
 
 case class Comment(
-  wykopId: Long,
+  wykopId: Int,
   id: Long,
   who: String,
   content: String,
@@ -34,8 +34,8 @@ case class Comment(
 )
 
 case class Vote(
-  wykopId: Long,
+  wykopId: Int,
   who: String,
-  when: LocalDateTime,
-  isUp: Boolean
+  isUp: Boolean,
+  when: LocalDateTime
 )

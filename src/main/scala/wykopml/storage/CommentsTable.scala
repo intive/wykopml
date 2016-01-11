@@ -27,7 +27,7 @@ class CommentsTable extends CassandraTable[CommentsTable, Comment] {
 
   override def fromRow(r: Row): Comment = {
     Comment(
-      wykopId(r),
+      wykopId(r).toInt,
       id(r),
       who(r),
       content(r),

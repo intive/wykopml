@@ -43,7 +43,7 @@ trait VotersFlow {
               content.split("usercard").flatMap {
               part =>
                 Extractor.findAllMatchIn(part).map[Vote] {
-                  m => Vote(voterUrl.wykopId, m.group(1), LocalDateTime.parse(m.group(2), DateTimeFormatter.ISO_DATE_TIME), voterUrl.isUp)
+                  m => Vote(voterUrl.wykopId, m.group(1), voterUrl.isUp, LocalDateTime.parse(m.group(2), DateTimeFormatter.ISO_DATE_TIME))
                 }
             }.toList
             )
@@ -57,6 +57,6 @@ trait VotersFlow {
 
 object VotersFlow {
 
-  case class VoterUrl(wykopId: Long, url: String, isUp: Boolean)
+  case class VoterUrl(wykopId: Int, url: String, isUp: Boolean)
 
 }
