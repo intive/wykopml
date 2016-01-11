@@ -17,11 +17,7 @@ class WykopDatabase(val keyspace: KeySpaceDef) extends com.websudos.phantom.db.D
 
 object WykopDatabase extends WykopDatabase(Defaults.connector) {
 
-  def init(): Unit = {
-    Await.result(wykops.create.ifNotExists().future(), Duration.Inf)
-    Await.result(votes.create.ifNotExists().future(), Duration.Inf)
-    Await.result(comments.create.ifNotExists().future(), Duration.Inf)
-  }
+  def init() = Await.result(autocreate().future(), Duration.Inf)
 
 }
 
