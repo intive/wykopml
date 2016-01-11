@@ -43,6 +43,7 @@ object TrainModel extends App with StrictLogging {
   WithSpark {
     sc =>
 
+      val numIterations = 10
       val votesRDD = LoadVotesFromCassandra(sc).setName("votes").cache()
 
       val userMappingsRDD = votesRDD.map(_.who).distinct().zipWithIndex.map(p => (p._1, p._2.toInt))
@@ -54,8 +55,8 @@ object TrainModel extends App with StrictLogging {
 
       var bestModelAndMse: Option[(Int, MatrixFactorizationModel, Option[Double])] = None
 
-      for (rank <- 100 to 200 by 10) {
-        val (model, mse) = createModel(30, 10, ratings, true)
+      for (rank <- 10 to 200 by 10) {
+        val (model, mse) = createModel(rank, numIterations, ratings, true)
         println(s"For rank ${rank} mse is ${mse}")
         if (bestModelAndMse.isEmpty || bestModelAndMse.get._3.getOrElse(Double.MaxValue) > mse.getOrElse(0.0)) {
           println("Will use new trained model")

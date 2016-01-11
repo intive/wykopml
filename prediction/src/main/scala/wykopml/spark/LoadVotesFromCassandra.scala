@@ -9,7 +9,6 @@ import com.datastax.spark.connector.rdd.reader.{RowReader, RowReaderFactory}
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import wykopml.bo.Vote
-import wykopml.storage.WykopDatabase
 import com.datastax.spark.connector._
 
 case object LoadVotesFromCassandra {
@@ -35,7 +34,7 @@ case object LoadVotesFromCassandra {
       override def targetClass: Class[Vote] = classOf[Vote]
     }
 
-    sc.cassandraTable[Vote](WykopDatabase.keyspace.name, WykopDatabase.votes.tableName)
+    sc.cassandraTable[Vote]("wykop", "votes")
 
   }
 
