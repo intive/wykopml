@@ -1,5 +1,7 @@
-# use Docker-based container (instead of OpenVZ)
 sudo: false
+env:
+  global:
+    secure: gvtYQHhUBT+Y6N25oWaE7cQo/pAkgUkLdgqYDHDhBBqoZmRXd6zXjnb/I8RF+/q4XLACM64jPINWsYoYeor1+o+1+W9bKeU6hTlAJxf8noytFGIMoUOW580Lvg2JqarTiKGMnVVUzpEEh7/m4M/3n0aFFgn5NLwJ0GIduEGUyC57sYuc5rklZx9Jj2dYea+Qi2rS8I3bo07YTYsqaaBQYvZ67n5Ns6E0uJV84ttpDFgA5/zDUVqyCRfg70+nsiut+QxIGZfqyLvCUbi46hKOF4zzkdDd128uPEb0+DEy+8ubzgLJX6QXE94F9F0zdvGsHiFQKDqGZHBsGaiGu32ryH9b9n03ajiaWwCMMDoi7f5AZtII8bw9mgGVmfo2KA5QIKlxdYxPcihlIc5KZpvvQ5qflP2SD9dH4u3HD/mi0iq5VJWMsjMDeiF0a+5AMzdS/dlH0iQ0c7NwyrlBY5eqHDogwnglQkrUVDhS2bQESPDuYxnVg6UmtYKXT400bFzpadme2ix9O0ebBmuDB08//l/3/+c0lGOUV1F4PxgXyyZosQpcuF+chKyinT4KDwM6mlwCXbsY8UZNIUhtcgRAEVdAayrp9wDAZxSvmbyVsmZdJt2J6FZwQM+HRfps7wxSXAv/ppQd2U/r+sDmqIxCoC9wMLgHRh8MBmSf3ekRDTc=
 
 cache:
   directories:
@@ -8,12 +10,12 @@ cache:
     - $HOME/.ivy2
 
 language: scala
-
-script: 
-  - sbt ++$TRAVIS_SCALA_VERSION compile test:compile
-  - sbt ++$TRAVIS_SCALA_VERSION test
-
-
+script:
+  - sbt ++$TRAVIS_SCALA_VERSION clean compile test:compile
+  - sbt ++$TRAVIS_SCALA_VERSION coverage test
+  - sbt ++$TRAVIS_SCALA_VERSION coverageReport
+  - sbt ++$TRAVIS_SCALA_VERSION coverageAggregate
+  - sbt ++$TRAVIS_SCALA_VERSION codacyCoverage
 scala:
   - 2.11.7
 
