@@ -29,7 +29,7 @@ case object IndexParser extends StrictLogging {
           val id = idString.toInt
 
           val titleLink = e.select(".m-reset-margin h2 a")
-          val title = titleLink.attr("title")
+          val title = Option(titleLink.attr("title")).getOrElse("")
           val url = titleLink.attr("href")
 
           val description = e.select("div.description p").text().trim
