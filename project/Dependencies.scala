@@ -45,6 +45,11 @@ object Dependencies {
     "com.datastax.spark" %% "spark-cassandra-connector" % Versions.cassandraConnector exclude("org.apache.spark", "spark-core") exclude("org.slf4j", "slf4j-log4j12")
   )
 
+  val languageTool = Seq(
+    "org.languagetool" % "language-pl" % "3.2",
+    "org.carrot2" % "morfologik-polish" % "1.10.0"
+  )
+
   val common = Seq(
     "net.ruippeixotog" %% "scala-scraper" % "0.1.2",
     "com.github.scopt" %% "scopt" % "3.3.0",
@@ -56,6 +61,6 @@ object Dependencies {
 
   val updater = akka ++ akkaHttp ++ phantom
 
-  val prediction = spark ++ cassandraConnector
+  val prediction = spark ++ cassandraConnector ++ languageTool
 
 }
