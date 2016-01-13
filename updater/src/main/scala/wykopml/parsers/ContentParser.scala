@@ -23,11 +23,23 @@ case object ContentParser extends LazyLogging {
     val doc = browser.parseString(content)
 
     def parseComment(d: Element, commentIndex: Int, parent: Option[Long]): Comment = {
+      //remove citations
+      d.select("div.text").first().select("cite").remove()
+      //remove voters box
+      d.select("div.text").first().select(".votersContainer").remove()
+      //remove links to profiles
+      d.select("div.text").first().select(".showProfileSummary").remove()
+      //remove images
+      d.select("div.text").first().select(".media-content").remove()
+
+      val content = d.select("div.text").first().text().trim
+      val cleanedContent = content.replaceAll("Komentarz usunięty przez autora", "").trim
+
       Comment(
         wykop.id,
         d.attr("data-id").toLong,
         d.select(".showProfileSummary").first().text().trim,
-        d.select("div.text").first().text().trim,
+        cleanedContent,
         d.select("div.text").first().html(),
         d.select("p.vC").attr("data-vcp").stripPrefix("+").toInt,
         d.select("p.vC").attr("data-vcm").toInt,
